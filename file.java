@@ -1,12 +1,29 @@
+
+/**
+ * The Node class represents a node in the linked list used to implement the priority queue.
+ * Each node contains a reference to a Process object.
+ */
+
 class Node {
     Process data;
     Node next;
+
+    /**
+     * Constructor to create a new Node with the given Process object.
+     * @param data The Process object to store in the node.
+     */
 
     public Node(Process data) {
         this.data = data;
         this.next = null;
     }
 }
+
+
+/**
+ * The Process class represents a process with attributes such as id, arrival time, burst time, priority,
+ * start time, and completion time.
+ */
 
 class Process {
     int id;
@@ -15,6 +32,15 @@ class Process {
     int priority;
     int startTime;
     int completionTime;
+
+
+    /**
+     * Constructor to create a new Process with the given attributes.
+     * @param id Unique identifier for the process.
+     * @param arrivalTime Time at which the process arrives.
+     * @param burstTime Time required by the process to execute.
+     * @param priority Priority of the process.
+     */
 
     public Process(int id, int arrivalTime, int burstTime, int priority) {
         this.id = id;
@@ -26,9 +52,17 @@ class Process {
     }
 }
 
+    /**
+ * The PriorityQueue class represents a non-preemptive priority queue implemented using a linked list.
+ * It supports enqueue, dequeue, and scheduling operations, along with functions to calculate turnaround
+ * time, waiting time, response time, and their averages.
+ */
+
 public class PriorityQueue {
     Node front;
     int currentTime;
+
+    
 
     public PriorityQueue() {
         front = null;
@@ -66,6 +100,11 @@ public class PriorityQueue {
         return front == null;
     }
 
+    /**
+     * Schedules the processes in the priority queue by processing them one by one.
+     * Calculates the start time and completion time for each process.
+     */
+
     public void schedule() {
         // Process the elements in the priority queue
         while (!isEmpty()) {
@@ -76,13 +115,19 @@ public class PriorityQueue {
         }
     }
 
+    
+
     public float calculateTurnaroundTime(Process process) {
         return process.completionTime - process.arrivalTime;
     }
 
+    
+
     public float calculateWaitingTime(Process process) {
         return calculateTurnaroundTime(process) - process.burstTime;
     }
+
+    
 
     public float calculateResponseTime(Process process) {
         return process.startTime - process.arrivalTime;
@@ -132,6 +177,14 @@ public class PriorityQueue {
 
         return totalResponseTime / numProcesses;
     }
+
+
+    /**
+     * The main method demonstrates the usage of the PriorityQueue class.
+     * It enqueues processes, schedules them, prints individual process metrics,
+     * and then prints the average metrics.
+     * @param args Command-line arguments (not used).
+     */
 
     public static void main(String[] args) {
         PriorityQueue pq = new PriorityQueue();
